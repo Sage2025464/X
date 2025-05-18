@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>التغذية الصحية للحامل المصابة بالسكري</title>
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #f5e6f8, #e2d5f5);
+      color: #3e2b4d;
+      line-height: 1.7;
+      min-height: 100vh;
+      direction: rtl;
+    }
+    header {
+      background-color: #7f4ca5;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      font-size: 1.8rem;
+    }
+    main {
+      max-width: 960px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    section {
+      margin-bottom: 35px;
+    }
+    section h2 {
+      color: #6a329f;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #b89dd8;
+      padding-bottom: 6px;
+      font-size: 1.4rem;
+    }
+    p, li {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+    ul {
+      padding-right: 20px;
+    }
+    .faq {
+      background-color: #f3e9fc;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+    }
+    .faq-item {
+      margin-bottom: 18px;
+    }
+    .faq-item strong {
+      display: block;
+      color: #7228a3;
+      margin-bottom: 6px;
+    }
+    .image-box {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .image-box img {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .btn-tip {
+      background-color: #8f4fb3;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    #conseils {
+      display: none;
+      background: #f8f1fc;
+      border-right: 5px solid #a071c6;
+      padding: 18px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+    footer {
+      background-color: #7228a3;
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      main { padding: 20px; margin: 15px; }
+      header h1 { font-size: 1.4rem; }
+      section h2 { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>التغذية الصحية للحامل المصابة بالسكري</h1>
+  <p>دليلك اليومي نحو حمل آمن وتغذية متوازنة</p>
+</header>
+
+<main>
+
+  <section>
+    <h2>مقدمة </h2>
+    <p>
+      يُعد السكري الحملي من الحالات الشائعة التي تتطلب تغذية صحية خاصة لتجنب ارتفاع أو انخفاض مفاجئ في مستوى السكر في الدم. يتطلب الأمر توازناً بين الكربوهيدرات المعقدة، البروتين، والألياف مع تقليل السكريات السريعة والدهون المشبعة.
+    </p>
+  </section>
+
+  <section class="image-box">
+    <img src="https://cdn.pixabay.com/photo/2017/03/30/12/59/pregnant-2181944_1280.jpg" alt="امرأة حامل تتبع نظام غذائي صحي">
+    <p>التغذية الذكية تدعم صحة الأم والجنين</p>
+  </section>
+
+  <section>
+    <h2>نصائح غذائية رئيسية</h2>
+    <ul>
+      <li>تناولي 3 وجبات رئيسية + 2 وجبتين خفيفتين.</li>
+      <li>اختاري الخبز الأسمر، الشوفان، والأرز البني.</li>
+      <li>أكثري من الخضروات الورقية والبقوليات.</li>
+      <li>تجنبي العصائر الصناعية والحلويات الجاهزة.</li>
+      <li>تتبعي مستوى السكر بالدم بانتظام.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>نصائح عملية يومية</h2>
+    <button class="btn-tip" id="toggleConseilsBtn">عرض / إخفاء النصائح</button>
+    <div id="conseils">
+      <ul>
+        <li>ابدئي يومك بفطور يحتوي على بروتين وألياف.</li>
+        <li>احملي معك وجبات خفيفة (مثل المكسرات أو الفواكه المجففة).</li>
+        <li>تجنبي القهوة بكثرة والمشروبات الغازية.</li>
+        <li>مارسي رياضة خفيفة مثل المشي يوميًا بعد استشارة طبيبك.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>الأسئلة الشائعة (FAQ)</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <strong>هل أحتاج إلى حمية خاصة خلال الحمل؟</strong>
+        <p>نعم، ويجب أن تكون تحت إشراف طبيب تغذية لتلائم حالتك الخاصة وسكر دمك.</p>
+      </div>
+
+      <div class="faq-item">
+        <strong>هل جميع الفواكه مسموحة؟</strong>
+        <p>اختاري الفواكه ذات مؤشر جلايسيمي منخفض مثل التفاح، التوت، البرقوق وابتعدي عن التمر والعنب بكميات كبيرة.</p>
+      </div>
+
+      <div class="faq-item">
+        <strong>هل أتناول الأنسولين مع الغذاء؟</strong>
+        <p>بحسب وصفة الطبيب. بعض الحالات تتطلب أنسولين لضبط السكر.</p>
+      </div>
+
+      <div class="faq-item">
+        <strong>متى أراجع طبيب التغذية؟</strong>
+        <p>منذ التشخيص الأولي لسكري الحمل، ثم دوريًا لمتابعة الخطة.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2025 - صفحة موجهة للنساء الحوامل المصابات بالسكري بإشراف أخصائيين
+</footer>
+
+<script>
+  const btn = document.getElementById('toggleConseilsBtn');
+  const div = document.getElementById('conseils');
+  btn.addEventListener('click', () => {
+    const visible = div.style.display === 'block';
+    div.style.display = visible ? 'none' : 'block';
+    btn.textContent = visible ? 'عرض النصائح' : 'إخفاء النصائح';
+  });
+</script>
+
+</body>
+</html>

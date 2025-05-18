@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>التغذية للحامل المصابة بالسكري</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #f5e6f8, #e2d5f5);
+      color: #3e2b4d;
+      direction: rtl;
+      padding: 0;
+      margin: 0;
+    }
+    header, footer {
+      background-color: #7f4ca5;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+    main {
+      max-width: 960px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+    }
+    h2 { color: #6a329f; }
+    section { margin-bottom: 30px; }
+    input, select, button {
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .lang-switch {
+      float: left;
+      margin: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #e0c9f2;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1 id="title">التغذية للحامل المصابة بالسكري</h1>
+  <div class="lang-switch">
+    <button onclick="switchLang('ar')">العربية</button>
+    <button onclick="switchLang('fr')">Français</button>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <h2 id="bmi-title">حاسبة مؤشر كتلة الجسم (IMC)</h2>
+    <label for="weight" id="weight-label">الوزن (كغ):</label>
+    <input type="number" id="weight" placeholder="مثلاً: 70">
+    <label for="height" id="height-label">الطول (سم):</label>
+    <input type="number" id="height" placeholder="مثلاً: 160">
+    <button onclick="calculateBMI()" id="bmi-button">احسب</button>
+    <p id="bmi-result"></p>
+  </section>
+
+  <section>
+    <h2 id="monitor-title">متابعة الحمل: الوزن، الارتفاع الرحمي، وحركات الجنين</h2>
+    <label for="maternal-weight">وزنك الحالي (كغ):</label>
+    <input type="number" id="maternal-weight" placeholder="أدخلي الوزن الحالي">
+
+    <label for="fundal-height">ارتفاع الرحم (سم):</label>
+    <input type="number" id="fundal-height" placeholder="أدخلي ارتفاع الرحم">
+
+    <label for="fetal-movements">عدد حركات الجنين في ساعة:</label>
+    <input type="number" id="fetal-movements" placeholder="أدخلي عدد الحركات">
+
+    <button onclick="monitorPregnancy()">تحليل البيانات</button>
+    <p id="monitor-result"></p>
+  </section>
+
+  <section>
+    <h2 id="meal-title">نموذج لخطة غذائية أسبوعية</h2>
+    <table>
+      <tr>
+        <th id="day">اليوم</th>
+        <th id="breakfast">الفطور</th>
+        <th id="lunch">الغداء</th>
+        <th id="dinner">العشاء</th>
+      </tr>
+      <tr>
+        <td>الأحد</td>
+        <td>خبز كامل + بيضة + حليب بدون سكر</td>
+        <td>صدر دجاج + أرز بني + سلطة</td>
+        <td>شوربة خضار + زبادي</td>
+      </tr>
+      <tr>
+        <td>الإثنين</td>
+        <td>شوفان + قرفة + تفاحة</td>
+        <td>سمك مشوي + بطاطا + خضار مطهية</td>
+        <td>بيض مسلوق + خضار طازجة</td>
+      </tr>
+      <!-- يمكن إضافة باقي الأيام -->
+    </table>
+  </section>
+
+  <section>
+    <h2>نصائح للحامل المصابة بالسكري</h2>
+    <ul>
+      <li>قسّي نسبة السكر بانتظام وتابعي مع طبيبتك.</li>
+      <li>مارسي نشاطًا خفيفًا يوميًا مثل المشي.</li>
+      <li>قسّمي وجباتك إلى 5-6 وجبات صغيرة يوميًا.</li>
+      <li>تجنّبي السكريات البسيطة والمشروبات الغازية.</li>
+      <li>اشربي كمية كافية من الماء (8 أكواب يوميًا).</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2025 - محتوى توعوي للحامل المصابة بالسكري
+</footer>
+
+<script>
+function calculateBMI() {
+  const w = parseFloat(document.getElementById('weight').value);
+  const h = parseFloat(document.getElementById('height').value) / 100;
+  const res = document.getElementById('bmi-result');
+  if (w && h) {
+    const bmi = w / (h * h);
+    let msg = 'مؤشر كتلة الجسم: ' + bmi.toFixed(1) + ' - ';
+    if (bmi < 18.5) msg += 'نقص في الوزن.';
+    else if (bmi < 25) msg += 'وزنك مثالي.';
+    else if (bmi < 30) msg += 'زيادة بسيطة في الوزن.';
+    else msg += '⚠️ وزن زائد - استشيري طبيبتك.';
+
+    res.innerText = msg;
+  } else {
+    res.innerText = 'يرجى ملء الوزن والطول بشكل صحيح.';
+  }
+}
+
+function monitorPregnancy() {
+  const weight = parseFloat(document.getElementById('maternal-weight').value);
+  const height = parseFloat(document.getElementById('fundal-height').value);
+  const movements = parseInt(document.getElementById('fetal-movements').value);
+
+  let result = '';
+
+  if (isNaN(weight) || isNaN(height) || isNaN(movements)) {
+    result = 'يرجى ملء جميع الحقول بشكل صحيح.';
+  } else {
+    result += `الوزن الحالي: ${weight} كغ\n`;
+    result += `ارتفاع الرحم: ${height} سم\n`;
+
+    if (movements >= 10) {
+      result += `✅ حركات الجنين طبيعية (${movements} /ساعة).`;
+    } else {
+      result += `⚠️ الحركات منخفضة (${movements}/ساعة). يرجى مراجعة الطبيب فوراً.`;
+    }
+  }
+
+  document.getElementById('monitor-result').innerText = result;
+}
+
+function switchLang(lang) {
+  if (lang === 'fr') {
+    document.documentElement.lang = 'fr';
+    document.documentElement.dir = 'ltr';
+    document.getElementById('title').innerText = 'Nutrition pour les femmes enceintes diabétiques';
+    document.getElementById('bmi-title').innerText = 'Calculateur IMC';
+    document.getElementById('weight-label').innerText = 'Poids (kg) :';
+    document.getElementById('height-label').innerText = 'Taille (cm) :';
+    document.getElementById('bmi-button').innerText = 'Calculer';
+    document.getElementById('monitor-title').innerText = 'Suivi grossesse : Poids, hauteur utérine, mouvements fœtaux';
+    document.getElementById('meal-title').innerText = 'Plan alimentaire hebdomadaire';
+    document.getElementById('day').innerText = 'Jour';
+    document.getElementById('breakfast').innerText = 'Petit-déj';
+    document.getElementById('lunch').innerText = 'Déjeuner';
+    document.getElementById('dinner').innerText = 'Dîner';
+  } else {
+    location.reload(); // recharge la version arabe
+  }
+}
+</script>
+</body>
+</html>

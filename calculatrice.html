@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>حاسبة الحمل | أمومة آمنة</title>
+  <meta name="description" content="حاسبة عمر الحمل لتتبع نمو الجنين أسبوعًا بأسبوع." />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f9f7fc;
+    }
+    button:focus,
+    input:focus {
+      outline: 3px solid #8b5cf6;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body class="text-gray-800 bg-purple-50 flex flex-col min-h-screen">
+
+  <header class="bg-gradient-to-b from-purple-100 to-white text-center py-8 shadow-md" role="banner">
+    <h1 class="text-4xl font-bold text-purple-700" lang="ar">حاسبة الحمل</h1>
+    <p class="mt-2 text-gray-700" lang="ar">احسبي عمر حملك بسهولة وتابعي نمو جنينك أسبوعًا بأسبوع.</p>
+  </header>
+
+  <main class="flex-grow max-w-xl mx-auto p-6">
+    <section aria-label="حاسبة الحمل" lang="ar" class="bg-white rounded-2xl shadow-md p-6">
+      <form id="calcForm" class="space-y-4" onsubmit="return false;">
+        <label for="lastPeriod" class="block text-right font-semibold text-purple-700">تاريخ آخر دورة شهرية</label>
+        <input 
+          type="date" 
+          id="lastPeriod" 
+          name="lastPeriod" 
+          required 
+          class="w-full border border-gray-300 rounded px-3 py-2 text-right focus:outline-none focus:ring-2 focus:ring-purple-400" 
+          aria-required="true"
+        />
+
+        <button type="submit" onclick="calculatePregnancy()" 
+          class="w-full bg-purple-600 text-white font-bold py-2 rounded hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 transition">
+          احسبي عمر الحمل
+        </button>
+      </form>
+
+      <div id="result" class="mt-6 text-right text-purple-800 font-semibold text-lg" role="region" aria-live="polite" aria-atomic="true"></div>
+    </section>
+  </main>
+
+  <footer class="bg-purple-200 text-purple-900 text-center py-6 mt-12" role="contentinfo" lang="ar">
+    <p>© 2025 منصة أمومة آمنة. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <script>
+    function calculatePregnancy() {
+      const lastPeriodInput = document.getElementById('lastPeriod');
+      const resultDiv = document.getElementById('result');
+
+      if (!lastPeriodInput.value) {
+        resultDiv.textContent = 'الرجاء إدخال تاريخ آخر دورة شهرية.';
+        return;
+      }
+
+      const lastPeriodDate = new Date(lastPeriodInput.value);
+      const today = new Date();
+
+      if (lastPeriodDate > today) {
+        resultDiv.textContent = 'تاريخ آخر دورة شهرية لا يمكن أن يكون في المستقبل.';
+        return;
+      }
+
+      // حساب الفرق بالأيام
+      const diffTime = today - lastPeriodDate;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      // عمر الحمل بالأسبوع واليوم
+      const weeks = Math.floor(diffDays / 7);
+      const days = diffDays % 7;
+
+      if (weeks < 0) {
+        resultDiv.textContent = 'تاريخ غير صالح.';
+        return;
+      }
+
+      // الحد الأقصى لعمر الحمل الطبيعي
+      if (weeks > 42) {
+        resultDiv.textContent = 'عمر الحمل يتجاوز المدة الطبيعية (أكثر من 42 أسبوعًا). يرجى التحقق من التاريخ.';
+        return;
+      }
+
+      resultDiv.textContent = `عمر الحمل الحالي: ${weeks} أسبوع و${days} يوم.`;
+    }
+  </script>
+
+</body>
+</html>

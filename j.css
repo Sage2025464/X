@@ -1,0 +1,179 @@
+<style>
+  :root {
+    --purple-light: #C4B5FD;
+    --purple-base: #6D28D9;
+    --purple-dark: #4B21A1;
+    --gray-text: #4B5563;
+    --bg-light: #F9F7FC;
+    --shadow-light: rgba(124, 58, 237, 0.15);
+  }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--gray-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Header */
+  header {
+    background: linear-gradient(180deg, var(--purple-light) 0%, #fff 100%);
+    text-align: center;
+    padding: 3rem 1rem;
+    box-shadow: 0 4px 12px var(--shadow-light);
+    user-select: none;
+  }
+  header h1 {
+    color: var(--purple-base);
+    font-weight: 900;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+  }
+  header h1 span {
+    color: #A78BFA; /* nuance violette plus douce */
+  }
+  header p {
+    margin-top: 0.5rem;
+    color: #5B21B6;
+    font-weight: 600;
+    font-size: 1.125rem;
+    opacity: 0.85;
+  }
+
+  /* Navigation */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+  nav a {
+    color: var(--purple-base);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease, filter 0.3s ease;
+  }
+  nav a:hover,
+  nav a:focus-visible {
+    color: var(--purple-dark);
+    filter: drop-shadow(0 0 4px var(--purple-base));
+  }
+  nav a[aria-current="page"] {
+    font-weight: 900;
+    color: var(--purple-dark);
+    text-shadow: 0 0 6px var(--purple-base);
+  }
+
+  /* Cards grid container */
+  main {
+    max-width: 84rem; /* ~1344px */
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+  }
+
+  /* Card styles */
+  a.bg-white {
+    background-color: #fff;
+    border-radius: 1.25rem;
+    box-shadow: 0 12px 24px var(--shadow-light);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    color: var(--purple-base);
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    user-select: none;
+  }
+  a.bg-white:hover,
+  a.bg-white:focus-visible {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
+    outline-offset: 4px;
+  }
+
+  a.bg-white img {
+    width: 96px;
+    height: 96px;
+    object-fit: contain;
+    transition: transform 0.35s ease;
+  }
+  a.bg-white:hover img,
+  a.bg-white:focus-visible img {
+    transform: scale(1.12);
+  }
+
+  a.bg-white h2 {
+    font-size: 1.375rem;
+    color: var(--purple-base);
+  }
+  a.bg-white p {
+    font-weight: 500;
+    color: #6B7280; /* gris moyen Tailwind */
+    margin-top: 0.3rem;
+  }
+
+  /* Language switcher */
+  .lang-switcher {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 100;
+  }
+  .lang-switcher a {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--purple-base);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.375rem;
+    background-color: #F3E8FF;
+    box-shadow: 0 0 8px var(--purple-light);
+    user-select: none;
+  }
+  .lang-switcher a:hover,
+  .lang-switcher a:focus-visible {
+    color: var(--purple-dark);
+    background-color: #DDD6FE;
+  }
+
+  /* Footer */
+  footer {
+    background-color: var(--purple-light);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 0.875rem;
+    color: #6B7280;
+    user-select: none;
+    box-shadow: inset 0 1px 2px rgb(255 255 255 / 0.3);
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 640px) {
+    nav {
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 1rem;
+    }
+    main {
+      gap: 1.5rem;
+      padding: 0 0.5rem;
+    }
+    a.bg-white h2 {
+      font-size: 1.25rem;
+    }
+  }
+</style>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>متابعة السكر اليومية | أمومة آمنة</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #fdfbff;
+    }
+    input:invalid {
+      border-color: red;
+    }
+  </style>
+</head>
+<body class="bg-purple-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-b from-purple-100 to-white text-center py-8 shadow-md">
+    <h1 class="text-3xl font-bold text-purple-700">📊 متابعة السكر اليومية</h1>
+    <p class="mt-2 text-gray-600">أدخلي قياسات السكر الستة الخاصة بك يوميًا</p>
+  </header>
+
+  <!-- Form -->
+  <main class="max-w-3xl mx-auto mt-8 p-6 bg-white rounded-2xl shadow-lg">
+    <form id="glycemiaForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block font-semibold mb-1">سكر الدم قبل الفطور (صائم)</label>
+        <input type="number" step="0.01" name="avantPetitDej" required class="w-full border rounded px-3 py-2 text-right">
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">سكر الدم بعد الفطور (2 س)</label>
+        <input type="number" step="0.01" name="apresPetitDej" required class="w-full border rounded px-3 py-2 text-right">
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">سكر الدم قبل الغداء</label>
+        <input type="number" step="0.01" name="avantDej" required class="w-full border rounded px-3 py-2 text-right">
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">سكر الدم بعد الغداء (2 س)</label>
+        <input type="number" step="0.01" name="apresDej" required class="w-full border rounded px-3 py-2 text-right">
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">سكر الدم قبل العشاء</label>
+        <input type="number" step="0.01" name="avantDiner" required class="w-full border rounded px-3 py-2 text-right">
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">سكر الدم بعد العشاء (2 س)</label>
+        <input type="number" step="0.01" name="apresDiner" required class="w-full border rounded px-3 py-2 text-right">
+      </div>
+      <div class="col-span-2 text-center mt-4">
+        <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg">📥 تسجيل القيم</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- History -->
+  <section class="max-w-4xl mx-auto mt-10 p-4">
+    <h2 class="text-xl font-bold text-purple-700 mb-4">📅 السجل اليومي</h2>
+    <table class="w-full text-center border-collapse">
+      <thead>
+        <tr class="bg-purple-100">
+          <th class="p-2">الوقت</th>
+          <th class="p-2">القيمة (g/L)</th>
+          <th class="p-2">الحالة</th>
+        </tr>
+      </thead>
+      <tbody id="historyTable" class="bg-white divide-y divide-gray-200"></tbody>
+    </table>
+  </section>
+
+  <script>
+    const form = document.getElementById("glycemiaForm");
+    const table = document.getElementById("historyTable");
+
+    // Seuils de référence
+    const thresholds = {
+      jeun: 0.92,
+      avant: 1.26,
+      apres: 1.26
+    };
+
+    // Déterminer le type (jeun / avant / après)
+    function getType(moment) {
+      if (moment === "avantPetitDej") return "jeun";
+      if (moment.startsWith("avant")) return "avant";
+      return "apres";
+    }
+
+    // État glycémique
+    function getStatus(value, type) {
+      const seuil = thresholds[type];
+      if (value <= seuil) return { text: "✅ طبيعي", color: "text-green-600" };
+      if (value <= seuil + 0.30) return { text: "⚠️ مرتفع قليلاً", color: "text-yellow-500" };
+      return { text: "❌ مرتفع جداً", color: "text-red-600" };
+    }
+
+    // Affichage des libellés
+    function getLabel(key) {
+      const labels = {
+        avantPetitDej: "قبل الفطور (صائم)",
+        apresPetitDej: "بعد الفطور",
+        avantDej: "قبل الغداء",
+        apresDej: "بعد الغداء",
+        avantDiner: "قبل العشاء",
+        apresDiner: "بعد العشاء"
+      };
+      return labels[key] || key;
+    }
+
+    // Affichage dans le tableau
+    function renderHistory(data) {
+      table.innerHTML = "";
+      for (const [moment, val] of Object.entries(data)) {
+        const type = getType(moment);
+        const status = getStatus(val, type);
+        table.innerHTML += `
+          <tr>
+            <td class="p-2 font-semibold">${getLabel(moment)}</td>
+            <td class="p-2">${val.toFixed(2)}</td>
+            <td class="p-2 ${status.color} font-semibold">${status.text}</td>
+          </tr>`;
+      }
+    }
+
+    // Gestion du formulaire
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const values = {};
+      for (let [key, val] of formData.entries()) {
+        values[key] = parseFloat(val);
+      }
+      localStorage.setItem("glycemiaToday", JSON.stringify(values));
+      renderHistory(values);
+    });
+    // Chargement des données sauvegardées
+    const saved = localStorage.getItem("glycemiaToday");
+    if (saved) renderHistory(JSON.parse(saved));
+  </script>
+</body>
+</html>
